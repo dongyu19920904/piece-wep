@@ -1,0 +1,654 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title data-i18n="meta.title">Lumina - Smart Lighting Solutions</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
+    <script src="translations.js"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#000000',
+                        secondary: '#333333',
+                        accent: '#007AFF',
+                        light: '#F5F5F7',
+                        dark: '#1D1D1F'
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        mono: ['monospace']
+                    }
+                }
+            }
+        }
+        
+        window.addEventListener("wheel", (e)=> {
+            const isPinching = e.ctrlKey
+            if(isPinching) e.preventDefault()
+        }, { passive: false })
+    </script>
+</head>
+<body class="bg-white text-primary">
+    <!-- Navbar -->
+    <nav class="fixed top-0 left-0 right-0 z-50 bg-white/90 backdrop-blur-sm border-b border-gray-100">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-16">
+                <div class="flex items-center">
+                    <a href="#" class="flex items-center">
+                        <svg class="h-8 w-8" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M20 5L5 20L20 35L35 20L20 5Z" stroke="currentColor" stroke-width="2" fill="none"/>
+                            <circle cx="20" cy="20" r="8" fill="currentColor"/>
+                        </svg>
+                        <span class="ml-2 text-lg font-semibold">Lumina</span>
+                    </a>
+                </div>
+                <div class="hidden md:flex items-center space-x-8">
+                    <a href="#home" class="text-gray-600 hover:text-gray-900" data-i18n="nav.home">Home</a>
+                    <a href="#features" class="text-gray-600 hover:text-gray-900" data-i18n="nav.features">Features</a>
+                    <a href="#contact" class="text-gray-600 hover:text-gray-900" data-i18n="nav.contact">Contact</a>
+                    <!-- Language Switcher -->
+                    <div class="flex items-center space-x-2">
+                        <button class="lang-btn px-2 py-1 rounded-md text-sm font-medium" data-lang="en">EN</button>
+                        <button class="lang-btn px-2 py-1 rounded-md text-sm font-medium" data-lang="zh">中文</button>
+                    </div>
+                </div>
+                <div class="flex items-center">
+                    <a href="#contact" class="hidden md:inline-flex items-center justify-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-primary hover:bg-gray-800 transition-colors" data-i18n="nav.getStarted">
+                        Get Started
+                    </a>
+                    <button id="mobile-menu-button" class="md:hidden flex items-center justify-center p-2" aria-expanded="false">
+                        <i data-lucide="menu" class="h-6 w-6"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Mobile menu -->
+        <div id="mobile-menu" class="hidden md:hidden border-b border-gray-100">
+            <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3">
+                <a href="#features" class="block px-3 py-2 text-base font-medium text-gray-600 hover:text-primary hover:bg-gray-50 rounded-md" data-i18n="nav.features">Features</a>
+                <a href="#products" class="block px-3 py-2 text-base font-medium text-gray-600 hover:text-primary hover:bg-gray-50 rounded-md" data-i18n="nav.products">Products</a>
+                <a href="#technology" class="block px-3 py-2 text-base font-medium text-gray-600 hover:text-primary hover:bg-gray-50 rounded-md" data-i18n="nav.technology">Technology</a>
+                <a href="#about" class="block px-3 py-2 text-base font-medium text-gray-600 hover:text-primary hover:bg-gray-50 rounded-md" data-i18n="nav.about">About</a>
+                <a href="#contact" class="block px-3 py-2 text-base font-medium text-gray-600 hover:text-primary hover:bg-gray-50 rounded-md" data-i18n="nav.contact">Contact</a>
+                <a href="#contact" class="block px-3 py-2 mt-4 text-base font-medium rounded-md text-white bg-primary hover:bg-gray-800 transition-colors text-center" data-i18n="nav.getStarted">Get Started</a>
+                <!-- Language Switcher for Mobile -->
+                <div class="flex items-center space-x-2 mt-4 px-3">
+                    <button class="lang-btn px-2 py-1 rounded-md text-sm font-medium" data-lang="en">EN</button>
+                    <button class="lang-btn px-2 py-1 rounded-md text-sm font-medium" data-lang="zh">中文</button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <main>
+        <!-- Hero Section -->
+        <section class="pt-32 pb-20 px-4 sm:px-6 lg:px-8">
+            <div class="max-w-7xl mx-auto">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+                    <div>
+                        <h1 class="text-4xl md:text-5xl font-bold leading-tight tracking-tight" data-i18n="hero.title">Intelligent lighting for your space</h1>
+                        <p class="mt-6 text-lg text-gray-600" data-i18n="hero.subtitle">Transform your environment with smart lighting that adapts to your lifestyle. Control ambience, mood, and functionality with a simple touch or voice command.</p>
+                        <div class="mt-10 flex flex-col sm:flex-row space-y-4 sm:space-y-0 sm:space-x-4">
+                            <a href="#products" class="inline-flex items-center justify-center px-6 py-3 border border-transparent text-base font-medium rounded-md text-white bg-primary hover:bg-gray-800 transition-colors" data-i18n="hero.exploreProducts">
+                                Explore Products
+                            </a>
+                            <a href="#technology" class="inline-flex items-center justify-center px-6 py-3 border border-gray-300 text-base font-medium rounded-md text-primary bg-white hover:bg-gray-50 transition-colors" data-i18n="hero.howItWorks">
+                                How It Works
+                            </a>
+                        </div>
+                        <div class="mt-8 flex items-center">
+                            <div class="flex -space-x-2 mr-3">
+                                <img src="https://randomuser.me/api/portraits/women/20.jpg" alt="User" class="w-8 h-8 rounded-full border-2 border-white">
+                                <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="User" class="w-8 h-8 rounded-full border-2 border-white">
+                                <img src="https://randomuser.me/api/portraits/women/42.jpg" alt="User" class="w-8 h-8 rounded-full border-2 border-white">
+                            </div>
+                            <span class="text-sm text-gray-500" data-i18n="hero.trustedBy">Trusted by 10,000+ customers</span>
+                        </div>
+                    </div>
+                    <div class="flex justify-center">
+                        <svg class="w-full h-auto max-w-md" viewBox="0 0 400 400" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <rect x="50" y="50" width="300" height="300" rx="10" fill="#f5f5f7" stroke="#e0e0e0" stroke-width="2"/>
+                            <circle cx="200" cy="175" r="60" fill="#007AFF" opacity="0.1"/>
+                            <circle cx="200" cy="175" r="40" fill="#007AFF" opacity="0.2"/>
+                            <path d="M185 175 L215 175 M200 160 L200 190" stroke="white" stroke-width="4" stroke-linecap="round"/>
+                            <circle cx="200" cy="175" r="20" fill="#007AFF" opacity="0.4"/>
+                            <circle cx="130" cy="120" r="15" fill="#007AFF" opacity="0.6"/>
+                            <circle cx="270" cy="120" r="15" fill="#007AFF" opacity="0.6"/>
+                            <circle cx="130" cy="230" r="15" fill="#007AFF" opacity="0.6"/>
+                            <circle cx="270" cy="230" r="15" fill="#007AFF" opacity="0.6"/>
+                            <rect x="140" y="280" width="120" height="30" rx="5" fill="#007AFF" opacity="0.2"/>
+                        </svg>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Brands Section -->
+        <section class="py-8 px-4 sm:px-6 lg:px-8 border-t border-b border-gray-100">
+            <div class="max-w-7xl mx-auto">
+                <div class="text-center mb-8">
+                    <p class="text-sm text-gray-500 uppercase tracking-wider font-medium" data-i18n="brands.title">Trusted by leading brands</p>
+                </div>
+                <div class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-8">
+                    <div class="flex justify-center items-center">
+                        <svg class="h-8 text-gray-400" viewBox="0 0 100 30" fill="currentColor">
+                            <path d="M10 10 h80 v10 h-80 z"></path>
+                        </svg>
+                    </div>
+                    <div class="flex justify-center items-center">
+                        <svg class="h-8 text-gray-400" viewBox="0 0 100 30" fill="currentColor">
+                            <circle cx="50" cy="15" r="10"></circle>
+                        </svg>
+                    </div>
+                    <div class="flex justify-center items-center">
+                        <svg class="h-8 text-gray-400" viewBox="0 0 100 30" fill="currentColor">
+                            <rect x="30" y="5" width="40" height="20" rx="5"></rect>
+                        </svg>
+                    </div>
+                    <div class="flex justify-center items-center">
+                        <svg class="h-8 text-gray-400" viewBox="0 0 100 30" fill="currentColor">
+                            <polygon points="50,5 80,25 20,25"></polygon>
+                        </svg>
+                    </div>
+                    <div class="hidden lg:flex justify-center items-center">
+                        <svg class="h-8 text-gray-400" viewBox="0 0 100 30" fill="currentColor">
+                            <path d="M30,5 L70,5 L80,15 L70,25 L30,25 L20,15 Z"></path>
+                        </svg>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Features Section -->
+        <section id="features" class="py-20 px-4 sm:px-6 lg:px-8">
+            <div class="max-w-7xl mx-auto">
+                <div class="text-center mb-16">
+                    <h2 class="text-3xl font-bold tracking-tight" data-i18n="features.title">Smart Features</h2>
+                    <p class="mt-4 text-lg text-gray-600 max-w-2xl mx-auto" data-i18n="features.subtitle">Our lighting solutions combine technology and design to create the perfect atmosphere for any moment.</p>
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                    <!-- Feature 1 -->
+                    <div class="bg-white p-8 rounded-lg border border-gray-100 transition-all hover:shadow-sm">
+                        <div class="w-12 h-12 bg-accent/10 rounded-lg flex items-center justify-center mb-6">
+                            <i data-lucide="palette" class="w-6 h-6 text-accent"></i>
+                        </div>
+                        <h3 class="text-xl font-semibold mb-3" data-i18n="features.feature1.title">16 Million Colors</h3>
+                        <p class="text-gray-600" data-i18n="features.feature1.description">Choose from millions of colors to create the perfect ambiance for any mood or occasion.</p>
+                    </div>
+                    
+                    <!-- Feature 2 -->
+                    <div class="bg-white p-8 rounded-lg border border-gray-100 transition-all hover:shadow-sm">
+                        <div class="w-12 h-12 bg-accent/10 rounded-lg flex items-center justify-center mb-6">
+                            <i data-lucide="smartphone" class="w-6 h-6 text-accent"></i>
+                        </div>
+                        <h3 class="text-xl font-semibold mb-3" data-i18n="features.feature2.title">Smart Control</h3>
+                        <p class="text-gray-600" data-i18n="features.feature2.description">Control your lights from anywhere using our intuitive mobile app for iOS and Android.</p>
+                    </div>
+                    
+                    <!-- Feature 3 -->
+                    <div class="bg-white p-8 rounded-lg border border-gray-100 transition-all hover:shadow-sm">
+                        <div class="w-12 h-12 bg-accent/10 rounded-lg flex items-center justify-center mb-6">
+                            <i data-lucide="mic" class="w-6 h-6 text-accent"></i>
+                        </div>
+                        <h3 class="text-xl font-semibold mb-3" data-i18n="features.feature3.title">Voice Assistant</h3>
+                        <p class="text-gray-600" data-i18n="features.feature3.description">Compatible with all major voice assistants including Alexa, Google Assistant, and Siri.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Products Section -->
+        <section id="products" class="py-20 px-4 sm:px-6 lg:px-8 bg-light">
+            <div class="max-w-7xl mx-auto">
+                <div class="text-center mb-16">
+                    <h2 class="text-3xl font-bold tracking-tight" data-i18n="products.title">Our Products</h2>
+                    <p class="mt-4 text-lg text-gray-600 max-w-2xl mx-auto" data-i18n="products.subtitle">Discover our innovative lighting solutions designed for modern living.</p>
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                    <!-- Product 1 -->
+                    <div class="bg-white rounded-lg overflow-hidden shadow-sm hover:shadow-md transition-shadow">
+                        <div class="h-48 bg-gray-100 flex items-center justify-center">
+                            <svg class="w-32 h-32 text-gray-400" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <circle cx="50" cy="30" r="20" fill="currentColor" opacity="0.7"/>
+                                <rect x="45" y="50" width="10" height="30" fill="currentColor"/>
+                                <rect x="30" y="80" width="40" height="5" rx="2" fill="currentColor"/>
+                            </svg>
+                        </div>
+                        <div class="p-6">
+                            <h3 class="text-xl font-semibold" data-i18n="products.product1.title">Smart Bulb Pro</h3>
+                            <p class="mt-2 text-gray-600" data-i18n="products.product1.description">Our flagship smart bulb with 16 million colors and voice control.</p>
+                            <div class="mt-4 flex justify-between items-center">
+                                <span class="text-accent font-medium" data-i18n="products.product1.price">$29.99</span>
+                                <button class="text-sm font-medium text-accent hover:underline" data-i18n="products.product1.learnMore">Learn more</button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Product 2 -->
+                    <div class="bg-white rounded-lg overflow-hidden shadow-sm hover:shadow-md transition-shadow">
+                        <div class="h-48 bg-gray-100 flex items-center justify-center">
+                            <svg class="w-32 h-32 text-gray-400" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <rect x="20" y="20" width="60" height="60" rx="5" fill="currentColor" opacity="0.7"/>
+                                <rect x="30" y="30" width="40" height="40" rx="3" fill="white" opacity="0.5"/>
+                                <circle cx="50" cy="50" r="10" fill="currentColor"/>
+                            </svg>
+                        </div>
+                        <div class="p-6">
+                            <h3 class="text-xl font-semibold" data-i18n="products.product2.title">Light Panel Kit</h3>
+                            <p class="mt-2 text-gray-600" data-i18n="products.product2.description">Modular light panels with customizable patterns and effects.</p>
+                            <div class="mt-4 flex justify-between items-center">
+                                <span class="text-accent font-medium" data-i18n="products.product2.price">$149.99</span>
+                                <button class="text-sm font-medium text-accent hover:underline" data-i18n="products.product2.learnMore">Learn more</button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Product 3 -->
+                    <div class="bg-white rounded-lg overflow-hidden shadow-sm hover:shadow-md transition-shadow">
+                        <div class="h-48 bg-gray-100 flex items-center justify-center">
+                            <svg class="w-32 h-32 text-gray-400" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <rect x="25" y="20" width="50" height="5" rx="2" fill="currentColor"/>
+                                <rect x="20" y="25" width="5" height="50" rx="2" fill="currentColor"/>
+                                <rect x="75" y="25" width="5" height="50" rx="2" fill="currentColor"/>
+                                <rect x="25" y="75" width="50" height="5" rx="2" fill="currentColor"/>
+                                <rect x="30" y="30" width="40" height="40" fill="currentColor" opacity="0.7"/>
+                            </svg>
+                        </div>
+                        <div class="p-6">
+                            <h3 class="text-xl font-semibold" data-i18n="products.product3.title">Light Strip Plus</h3>
+                            <p class="mt-2 text-gray-600" data-i18n="products.product3.description">Flexible LED strip for ambient lighting and accent highlights.</p>
+                            <div class="mt-4 flex justify-between items-center">
+                                <span class="text-accent font-medium" data-i18n="products.product3.price">$79.99</span>
+                                <button class="text-sm font-medium text-accent hover:underline" data-i18n="products.product3.learnMore">Learn more</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- App Section -->
+        <section class="py-20 px-4 sm:px-6 lg:px-8">
+            <div class="max-w-7xl mx-auto">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+                    <div class="order-2 md:order-1">
+                        <h2 class="text-3xl font-bold tracking-tight" data-i18n="app.title">Control at your fingertips</h2>
+                        <p class="mt-4 text-lg text-gray-600" data-i18n="app.subtitle">Our intuitive app gives you complete control over your lighting system from anywhere in the world.</p>
+                        <ul class="mt-8 space-y-4">
+                            <li class="flex">
+                                <i data-lucide="check-circle" class="h-6 w-6 text-accent flex-shrink-0"></i>
+                                <span class="ml-3 text-gray-600" data-i18n="app.features.scene">Create and save custom lighting scenes</span>
+                            </li>
+                            <li class="flex">
+                                <i data-lucide="check-circle" class="h-6 w-6 text-accent flex-shrink-0"></i>
+                                <span class="ml-3 text-gray-600" data-i18n="app.features.schedule">Set schedules and automations</span>
+                            </li>
+                            <li class="flex">
+                                <i data-lucide="check-circle" class="h-6 w-6 text-accent flex-shrink-0"></i>
+                                <span class="ml-3 text-gray-600" data-i18n="app.features.sync">Sync lights with music, movies, and games</span>
+                            </li>
+                            <li class="flex">
+                                <i data-lucide="check-circle" class="h-6 w-6 text-accent flex-shrink-0"></i>
+                                <span class="ml-3 text-gray-600" data-i18n="app.features.monitor">Monitor energy usage in real-time</span>
+                            </li>
+                        </ul>
+                        <div class="mt-8 flex flex-col sm:flex-row space-y-4 sm:space-y-0 sm:space-x-4">
+                            <a href="#" class="flex items-center px-6 py-3 bg-black text-white rounded-lg hover:bg-gray-900 transition-colors">
+                                <svg class="h-6 w-6 mr-2" viewBox="0 0 24 24" fill="currentColor">
+                                    <path d="M18.71 19.5C17.88 20.74 17 21.95 15.66 21.97C14.32 22 13.89 21.18 12.37 21.18C10.84 21.18 10.37 21.95 9.09997 22C7.78997 22.05 6.79997 20.68 5.95997 19.47C4.24997 17 2.93997 12.45 4.69997 9.39C5.56997 7.87 7.12997 6.91 8.81997 6.88C10.1 6.86 11.32 7.75 12.11 7.75C12.89 7.75 14.37 6.68 15.92 6.84C16.57 6.87 18.39 7.1 19.56 8.82C19.47 8.88 17.39 10.1 17.41 12.63C17.44 15.65 20.06 16.66 20.09 16.67C20.06 16.74 19.67 18.11 18.71 19.5ZM13 3.5C13.73 2.67 14.94 2.04 15.94 2C16.07 3.17 15.6 4.35 14.9 5.19C14.21 6.04 13.07 6.7 11.95 6.61C11.8 5.46 12.36 4.26 13 3.5Z"/>
+                                </svg>
+                                <div class="flex flex-col">
+                                    <span class="text-xs" data-i18n="app.download.downloadText">Download our app on</span>
+                                    <span class="text-lg font-semibold -mt-1" data-i18n="app.download.appStore">App Store</span>
+                                </div>
+                            </a>
+                            <a href="#" class="flex items-center px-6 py-3 bg-black text-white rounded-lg hover:bg-gray-900 transition-colors">
+                                <svg class="h-6 w-6 mr-2" viewBox="0 0 24 24" fill="currentColor">
+                                    <path d="M3.18 23.32C2.43 23.32 1.82 22.71 1.82 21.96V2.04C1.82 1.29 2.43 0.68 3.18 0.68H20.82C21.57 0.68 22.18 1.29 22.18 2.04V21.96C22.18 22.71 21.57 23.32 20.82 23.32H3.18ZM12 7.16L17.94 13.1L19.04 12L12 4.96L4.96 12L6.06 13.1L12 7.16ZM12 16.84L6.06 10.9L4.96 12L12 19.04L19.04 12L17.94 10.9L12 16.84Z"/>
+                                </svg>
+                                <div class="flex flex-col">
+                                    <span class="text-xs" data-i18n="app.download.downloadText">Download our app on</span>
+                                    <span class="text-lg font-semibold -mt-1" data-i18n="app.download.playStore">Google Play Store</span>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="order-1 md:order-2 flex justify-center">
+                        <div class="relative">
+                            <div class="absolute inset-0 bg-gradient-to-r from-accent to-purple-500 opacity-10 rounded-3xl transform rotate-6"></div>
+                            <div class="relative bg-white p-2 rounded-3xl shadow-lg">
+                                <svg class="w-64 h-auto" viewBox="0 0 320 640" xmlns="http://www.w3.org/2000/svg">
+                                    <rect x="10" y="10" width="300" height="620" rx="30" fill="#f5f5f7"/>
+                                    <rect x="20" y="20" width="280" height="600" rx="20" fill="#ffffff" stroke="#e0e0e0" stroke-width="1"/>
+                                    <rect x="30" y="40" width="260" height="560" rx="5" fill="#007AFF" opacity="0.1"/>
+                                    <circle cx="160" cy="320" r="80" fill="#007AFF" opacity="0.2"/>
+                                    <circle cx="160" cy="320" r="60" fill="#007AFF" opacity="0.3"/>
+                                    <circle cx="160" cy="320" r="40" fill="#007AFF" opacity="0.5"/>
+                                    <path d="M140 320 L180 320 M160 300 L160 340" stroke="white" stroke-width="5" stroke-linecap="round"/>
+                                    <circle cx="80" cy="200" r="20" fill="#007AFF" opacity="0.4"/>
+                                    <circle cx="240" cy="200" r="20" fill="#007AFF" opacity="0.4"/>
+                                    <circle cx="80" cy="440" r="20" fill="#007AFF" opacity="0.4"/>
+                                    <circle cx="240" cy="440" r="20" fill="#007AFF" opacity="0.4"/>
+                                    <rect x="60" y="120" width="200" height="30" rx="5" fill="white"/>
+                                    <rect x="60" y="500" width="200" height="40" rx="20" fill="white"/>
+                                </svg>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Technology Section -->
+        <section id="technology" class="py-20 px-4 sm:px-6 lg:px-8 bg-light">
+            <div class="max-w-7xl mx-auto">
+                <div class="text-center mb-16">
+                    <h2 class="text-3xl font-bold tracking-tight" data-i18n="technology.title">Advanced Technology</h2>
+                    <p class="mt-4 text-lg text-gray-600 max-w-2xl mx-auto" data-i18n="technology.subtitle">Our lighting solutions are powered by cutting-edge technology for the ultimate smart home experience.</p>
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    <!-- Connectivity -->
+                    <div class="bg-white p-8 rounded-lg border border-gray-100">
+                        <div class="flex items-center mb-4">
+                            <div class="w-12 h-12 bg-accent/10 rounded-lg flex items-center justify-center mr-4">
+                                <i data-lucide="wifi" class="w-6 h-6 text-accent"></i>
+                            </div>
+                            <h3 class="text-xl font-semibold" data-i18n="technology.connectivity.title">Seamless Connectivity</h3>
+                        </div>
+                        <p class="text-gray-600" data-i18n="technology.connectivity.description">Our lights connect via Wi-Fi, Bluetooth, or Zigbee for flexible integration options.</p>
+                        <ul class="mt-4 space-y-2">
+                            <li class="flex items-center text-sm text-gray-600">
+                                <i data-lucide="check" class="w-4 h-4 text-accent mr-2"></i>
+                                <span data-i18n="technology.connectivity.features.0">Wi-Fi connectivity for direct internet access</span>
+                            </li>
+                            <li class="flex items-center text-sm text-gray-600">
+                                <i data-lucide="check" class="w-4 h-4 text-accent mr-2"></i>
+                                <span data-i18n="technology.connectivity.features.1">Bluetooth for quick setup and direct control</span>
+                            </li>
+                            <li class="flex items-center text-sm text-gray-600">
+                                <i data-lucide="check" class="w-4 h-4 text-accent mr-2"></i>
+                                <span data-i18n="technology.connectivity.features.2">Zigbee for mesh networking and extended range</span>
+                            </li>
+                        </ul>
+                    </div>
+                    
+                    <!-- Energy Efficiency -->
+                    <div class="bg-white p-8 rounded-lg border border-gray-100">
+                        <div class="flex items-center mb-4">
+                            <div class="w-12 h-12 bg-accent/10 rounded-lg flex items-center justify-center mr-4">
+                                <i data-lucide="zap" class="w-6 h-6 text-accent"></i>
+                            </div>
+                            <h3 class="text-xl font-semibold" data-i18n="technology.efficiency.title">Energy Efficiency</h3>
+                        </div>
+                        <p class="text-gray-600" data-i18n="technology.efficiency.description">Our LED technology provides maximum brightness while consuming minimal power.</p>
+                        <ul class="mt-4 space-y-2">
+                            <li class="flex items-center text-sm text-gray-600">
+                                <i data-lucide="check" class="w-4 h-4 text-accent mr-2"></i>
+                                <span data-i18n="technology.efficiency.features.0">Up to 80% more energy efficient than traditional lighting</span>
+                            </li>
+                            <li class="flex items-center text-sm text-gray-600">
+                                <i data-lucide="check" class="w-4 h-4 text-accent mr-2"></i>
+                                <span data-i18n="technology.efficiency.features.1">Long lifespan of 25,000+ hours reduces replacement costs</span>
+                            </li>
+                            <li class="flex items-center text-sm text-gray-600">
+                                <i data-lucide="check" class="w-4 h-4 text-accent mr-2"></i>
+                                <span data-i18n="technology.efficiency.features.2">Smart scheduling to optimize power usage</span>
+                            </li>
+                        </ul>
+                    </div>
+                    
+                    <!-- Security -->
+                    <div class="bg-white p-8 rounded-lg border border-gray-100">
+                        <div class="flex items-center mb-4">
+                            <div class="w-12 h-12 bg-accent/10 rounded-lg flex items-center justify-center mr-4">
+                                <i data-lucide="shield" class="w-6 h-6 text-accent"></i>
+                            </div>
+                            <h3 class="text-xl font-semibold" data-i18n="technology.security.title">Security & Privacy</h3>
+                        </div>
+                        <p class="text-gray-600" data-i18n="technology.security.description">We prioritize the security of your smart home with end-to-end encryption.</p>
+                        <ul class="mt-4 space-y-2">
+                            <li class="flex items-center text-sm text-gray-600">
+                                <i data-lucide="check" class="w-4 h-4 text-accent mr-2"></i>
+                                <span data-i18n="technology.security.features.0">End-to-end encryption for all communications</span>
+                            </li>
+                            <li class="flex items-center text-sm text-gray-600">
+                                <i data-lucide="check" class="w-4 h-4 text-accent mr-2"></i>
+                                <span data-i18n="technology.security.features.1">Regular security updates and vulnerability testing</span>
+                            </li>
+                            <li class="flex items-center text-sm text-gray-600">
+                                <i data-lucide="check" class="w-4 h-4 text-accent mr-2"></i>
+                                <span data-i18n="technology.security.features.2">Data privacy controls and transparent policies</span>
+                            </li>
+                        </ul>
+                    </div>
+                    
+                    <!-- Integration -->
+                    <div class="bg-white p-8 rounded-lg border border-gray-100">
+                        <div class="flex items-center mb-4">
+                            <div class="w-12 h-12 bg-accent/10 rounded-lg flex items-center justify-center mr-4">
+                                <i data-lucide="plug" class="w-6 h-6 text-accent"></i>
+                            </div>
+                            <h3 class="text-xl font-semibold" data-i18n="technology.integration.title">Smart Integration</h3>
+                        </div>
+                        <p class="text-gray-600" data-i18n="technology.integration.description">Our lighting solutions integrate with all major smart home platforms.</p>
+                        <ul class="mt-4 space-y-2">
+                            <li class="flex items-center text-sm text-gray-600">
+                                <i data-lucide="check" class="w-4 h-4 text-accent mr-2"></i>
+                                <span data-i18n="technology.integration.features.0">Works with Apple HomeKit, Google Home, and Amazon Alexa</span>
+                            </li>
+                            <li class="flex items-center text-sm text-gray-600">
+                                <i data-lucide="check" class="w-4 h-4 text-accent mr-2"></i>
+                                <span data-i18n="technology.integration.features.1">IFTTT support for custom automations and triggers</span>
+                            </li>
+                            <li class="flex items-center text-sm text-gray-600">
+                                <i data-lucide="check" class="w-4 h-4 text-accent mr-2"></i>
+                                <span data-i18n="technology.integration.features.2">Open API access for developers and custom integrations</span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- About Section -->
+        <section id="about" class="py-20 px-4 sm:px-6 lg:px-8">
+            <div class="max-w-7xl mx-auto">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+                    <div>
+                        <h2 class="text-3xl font-bold tracking-tight" data-i18n="about.title">About Lumina</h2>
+                        <p class="mt-4 text-lg text-gray-600" data-i18n="about.description1">Lumina was founded in 2018 with a mission to transform everyday spaces through innovative lighting technology. Our team of engineers, designers, and lighting experts work together to create products that are not only functional but also beautiful.</p>
+                        <p class="mt-4 text-lg text-gray-600" data-i18n="about.description2">We believe that lighting is fundamental to how we experience our environments, affecting everything from our mood and productivity to our health and wellbeing. That's why we're committed to developing solutions that give people complete control over their lighting experience.</p>
+                        <div class="mt-8">
+                            <h3 class="text-xl font-semibold mb-4" data-i18n="about.values.title">Our Values</h3>
+                            <div class="grid grid-cols-2 gap-4">
+                                <div class="flex items-start">
+                                    <i data-lucide="award" class="h-6 w-6 text-accent flex-shrink-0"></i>
+                                    <span class="ml-3 text-gray-600" data-i18n="about.values.excellence">Excellence in design</span>
+                                </div>
+                                <div class="flex items-start">
+                                    <i data-lucide="lightbulb" class="h-6 w-6 text-accent flex-shrink-0"></i>
+                                    <span class="ml-3 text-gray-600" data-i18n="about.values.innovation">Continuous innovation</span>
+                                </div>
+                                <div class="flex items-start">
+                                    <i data-lucide="heart" class="h-6 w-6 text-accent flex-shrink-0"></i>
+                                    <span class="ml-3 text-gray-600" data-i18n="about.values.satisfaction">Customer satisfaction</span>
+                                </div>
+                                <div class="flex items-start">
+                                    <i data-lucide="leaf" class="h-6 w-6 text-accent flex-shrink-0"></i>
+                                    <span class="ml-3 text-gray-600" data-i18n="about.values.responsibility">Environmental responsibility</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="grid grid-cols-2 gap-4">
+                        <div class="rounded-lg overflow-hidden">
+                            <img src="https://images.unsplash.com/photo-1565814636199-ae8133055c1c?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80" alt="Smart lighting" class="w-full h-full object-cover">
+                        </div>
+                        <div class="rounded-lg overflow-hidden">
+                            <img src="https://images.unsplash.com/photo-1543163521-1bf539c55dd2?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80" alt="Office with smart lighting" class="w-full h-full object-cover">
+                        </div>
+                        <div class="rounded-lg overflow-hidden">
+                            <img src="https://images.unsplash.com/photo-1555448248-2571daf6344b?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80" alt="Living room with smart lighting" class="w-full h-full object-cover">
+                        </div>
+                        <div class="rounded-lg overflow-hidden">
+                            <img src="https://images.unsplash.com/photo-1507149833265-60c372daea22?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80" alt="Bedroom with smart lighting" class="w-full h-full object-cover">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Contact Section -->
+        <section id="contact" class="py-20 px-4 sm:px-6 lg:px-8 bg-light">
+            <div class="max-w-7xl mx-auto">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-12">
+                    <div>
+                        <h2 class="text-3xl font-bold tracking-tight" data-i18n="contact.title">Get in Touch</h2>
+                        <p class="mt-4 text-lg text-gray-600" data-i18n="contact.subtitle">Have questions about our products or need assistance? Our team is here to help.</p>
+                        <div class="mt-8 space-y-6">
+                            <div class="flex">
+                                <i data-lucide="map-pin" class="h-6 w-6 text-accent flex-shrink-0"></i>
+                                <div class="ml-3">
+                                    <h3 class="font-medium" data-i18n="contact.visitUs.title">Visit Us</h3>
+                                    <p class="mt-1 text-gray-600" data-i18n="contact.visitUs.address">123 Innovation Drive, Tech City, CA 94043</p>
+                                </div>
+                            </div>
+                            <div class="flex">
+                                <i data-lucide="mail" class="h-6 w-6 text-accent flex-shrink-0"></i>
+                                <div class="ml-3">
+                                    <h3 class="font-medium" data-i18n="contact.emailUs.title">Email Us</h3>
+                                    <p class="mt-1 text-gray-600" data-i18n="contact.emailUs.email">support@lumina.com</p>
+                                </div>
+                            </div>
+                            <div class="flex">
+                                <i data-lucide="phone" class="h-6 w-6 text-accent flex-shrink-0"></i>
+                                <div class="ml-3">
+                                    <h3 class="font-medium" data-i18n="contact.callUs.title">Call Us</h3>
+                                    <p class="mt-1 text-gray-600" data-i18n="contact.callUs.phone">+1 (800) 123-4567</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="mt-8 flex space-x-4">
+                            <a href="#" class="text-gray-400 hover:text-accent">
+                                <i data-lucide="facebook" class="h-6 w-6"></i>
+                            </a>
+                            <a href="#" class="text-gray-400 hover:text-accent">
+                                <i data-lucide="instagram" class="h-6 w-6"></i>
+                            </a>
+                            <a href="#" class="text-gray-400 hover:text-accent">
+                                <i data-lucide="twitter" class="h-6 w-6"></i>
+                            </a>
+                            <a href="#" class="text-gray-400 hover:text-accent">
+                                <i data-lucide="linkedin" class="h-6 w-6"></i>
+                            </a>
+                        </div>
+                    </div>
+                    <div>
+                        <form id="contact-form" class="bg-white p-8 rounded-lg border border-gray-100">
+                            <div class="space-y-6">
+                                <div>
+                                    <label for="name" class="block text-sm font-medium text-gray-700 mb-1" data-i18n="contact.name">Name</label>
+                                    <input type="text" id="name" name="name" class="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-accent focus:border-transparent">
+                                </div>
+                                <div>
+                                    <label for="email" class="block text-sm font-medium text-gray-700 mb-1" data-i18n="contact.email">Email</label>
+                                    <input type="email" id="email" name="email" class="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-accent focus:border-transparent">
+                                </div>
+                                <div>
+                                    <label for="subject" class="block text-sm font-medium text-gray-700 mb-1" data-i18n="contact.subject">Subject</label>
+                                    <input type="text" id="subject" name="subject" class="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-accent focus:border-transparent">
+                                </div>
+                                <div>
+                                    <label for="message" class="block text-sm font-medium text-gray-700 mb-1" data-i18n="contact.message">Message</label>
+                                    <textarea id="message" name="message" rows="4" class="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-accent focus:border-transparent"></textarea>
+                                </div>
+                                <div>
+                                    <button type="submit" class="w-full bg-primary text-white py-2 px-4 rounded-md font-medium hover:bg-gray-800 transition-colors" data-i18n="contact.submit">Send Message</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-dark text-white py-12 px-4 sm:px-6 lg:px-8">
+        <div class="max-w-7xl mx-auto">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+                <div>
+                    <div class="flex items-center">
+                        <svg class="h-8 w-8" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M20 5L5 20L20 35L35 20L20 5Z" stroke="white" stroke-width="2" fill="none"/>
+                            <circle cx="20" cy="20" r="8" fill="white"/>
+                        </svg>
+                        <span class="ml-2 text-lg font-semibold">Lumina</span>
+                    </div>
+                    <p class="mt-4 text-gray-400" data-i18n="footer.description">Transform your space with intelligent lighting that adapts to your lifestyle.</p>
+                    <div class="mt-6 flex space-x-4">
+                        <a href="#" class="text-gray-400 hover:text-white transition-colors">
+                            <i data-lucide="facebook" class="h-5 w-5"></i>
+                        </a>
+                        <a href="#" class="text-gray-400 hover:text-white transition-colors">
+                            <i data-lucide="instagram" class="h-5 w-5"></i>
+                        </a>
+                        <a href="#" class="text-gray-400 hover:text-white transition-colors">
+                            <i data-lucide="twitter" class="h-5 w-5"></i>
+                        </a>
+                        <a href="#" class="text-gray-400 hover:text-white transition-colors">
+                            <i data-lucide="linkedin" class="h-5 w-5"></i>
+                        </a>
+                    </div>
+                </div>
+                <div>
+                    <h3 class="font-semibold mb-4" data-i18n="footer.products.title">Products</h3>
+                    <ul class="space-y-2">
+                        <li><a href="#" class="text-gray-400 hover:text-white transition-colors" data-i18n="footer.products.items.bulbs">Smart Bulbs</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white transition-colors" data-i18n="footer.products.items.panels">Light Panels</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white transition-colors" data-i18n="footer.products.items.strips">Light Strips</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white transition-colors" data-i18n="footer.products.items.controllers">Controllers</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white transition-colors" data-i18n="footer.products.items.accessories">Accessories</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="font-semibold mb-4" data-i18n="footer.support.title">Support</h3>
+                    <ul class="space-y-2">
+                        <li><a href="#" class="text-gray-400 hover:text-white transition-colors" data-i18n="footer.support.items.help">Help Center</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white transition-colors" data-i18n="footer.support.items.faqs">FAQs</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white transition-colors" data-i18n="footer.support.items.contact">Contact Us</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white transition-colors" data-i18n="footer.support.items.warranty">Warranty</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white transition-colors" data-i18n="footer.support.items.returns">Returns</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="font-semibold mb-4" data-i18n="footer.company.title">Company</h3>
+                    <ul class="space-y-2">
+                        <li><a href="#" class="text-gray-400 hover:text-white transition-colors" data-i18n="footer.company.items.about">About Us</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white transition-colors" data-i18n="footer.company.items.careers">Careers</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white transition-colors" data-i18n="footer.company.items.press">Press</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white transition-colors" data-i18n="footer.company.items.blog">Blog</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white transition-colors" data-i18n="footer.company.items.privacy">Privacy Policy</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="mt-12 pt-8 border-t border-gray-800 flex flex-col md:flex-row justify-between items-center">
+                <p class="text-gray-400 text-sm" data-i18n="footer.copyright">&copy; 2023 Lumina. All rights reserved.</p>
+                <p class="text-gray-400 text-sm mt-4 md:mt-0">
+                    <span data-i18n="footer.builtWith">Built with</span>
+                    <span class="text-white">Lumina</span>
+                </p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="scripts.js"></script>
+</body>
+</html>
